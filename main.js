@@ -12,6 +12,7 @@
 		searchHistory: el("#search-history"),
 		clearSearchHistory: el("#clear-search-history"),
 	};
+	const requestCache = {};
 
 	// model objects
 	const searchCountries = {
@@ -147,10 +148,22 @@
 
 	// helper functions
 	const getCountries = (name) => {
+		// using cache if available
+		if (requestCache[name] && requestCache[name] !== "error")
+			return Promise.resolve(requestCache[name]);
+		if (requestCache[name] && requestCache[name] === "error")
+			return Promise.reject(requestCache[name]);
+
 		return fetch(`${constants.API_URL}name/${name}`).then((res) => {
 			if (res.ok) {
-				return res.json();
+				return res.json().then((data) => {
+					// storing data in cache
+					requestCache[name] = data;
+					return data;
+				});
 			}
+			// storing error in cache
+			requestCache[name] = "error";
 			return Promise.reject("No data found!");
 		});
 	};
