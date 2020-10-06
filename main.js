@@ -8,7 +8,7 @@
 	const nodes = {
 		datalist: el("#countries-datalist"),
 		countriesSearch: el("#countries-search"),
-		countriesSearchEmpty: el("#countries-search-empty"),
+		countriesSearchReset: el("#countries-search-reset"),
 		searchHistory: el("#search-history"),
 		clearSearchHistory: el("#clear-search-history"),
 	};
@@ -96,14 +96,14 @@
 							);
 						});
 				} else {
-					nodes.searchHistory.innerHTML = "No data found.";
+					nodes.searchHistory.innerHTML = "No data yet.";
 				}
 			},
 		},
 	};
 
 	// events
-	nodes.countriesSearchEmpty.addEventListener("click", () => {
+	nodes.countriesSearchReset.addEventListener("click", () => {
 		nodes.countriesSearch.value = "";
 		searchCountries.result.set([]);
 	});
