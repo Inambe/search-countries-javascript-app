@@ -100,8 +100,10 @@ button {
 	display: none;
 }
 
-#clear-search-history button {
+#clear-search-history {
 	margin-bottom: 1rem;
+}
+#clear-search-history button {
 	text-decoration: underline;
 }
 
